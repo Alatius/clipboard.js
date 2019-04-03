@@ -1,6 +1,6 @@
 /*!
  * clipboard.js v2.0.4
- * https://zenorocha.github.io/clipboard.js
+ * https://clipboardjs.com/
  * 
  * Licensed MIT © Zeno Rocha
  */
@@ -164,6 +164,7 @@ var Clipboard = function (_Emitter) {
         value: function resolveOptions() {
             var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
+            this.abort = typeof options.abort === 'function' ? options.abort : this.defaultAbort;
             this.action = typeof options.action === 'function' ? options.action : this.defaultAction;
             this.target = typeof options.target === 'function' ? options.target : this.defaultTarget;
             this.text = typeof options.text === 'function' ? options.text : this.defaultText;
@@ -193,6 +194,10 @@ var Clipboard = function (_Emitter) {
     }, {
         key: 'onClick',
         value: function onClick(e) {
+            if (this.abort(e)) {
+                return;
+            }
+
             var trigger = e.delegateTarget || e.currentTarget;
 
             if (this.clipboardAction) {
@@ -207,6 +212,17 @@ var Clipboard = function (_Emitter) {
                 trigger: trigger,
                 emitter: this
             });
+        }
+
+        /**
+         * Default `abort` lookup function.
+         * @param {Event} e
+         */
+
+    }, {
+        key: 'defaultAbort',
+        value: function defaultAbort(e) {
+            return false;
         }
 
         /**
