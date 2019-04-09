@@ -151,11 +151,11 @@ new ClipboardJS('.btn', {
 });
 ```
 
-Sometimes you may want to abort the copy operation, for example if you want to copy only when the CTRL-key is pressed down. Simply declare an abort function, which returns true or false:
+Sometimes you may want to abort the copy operation, for example if you want to copy only when the CTRL-key is pressed down. Simply declare a `willAbort` function, which returns true or false:
 
 ```js
 new ClipboardJS('.btn', {
-    abort: function(event) {
+    willAbort: function(event) {
         return !event.ctrlKey;
     }
 });

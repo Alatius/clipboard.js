@@ -24,7 +24,7 @@ class Clipboard extends Emitter {
      * @param {Object} options
      */
     resolveOptions(options = {}) {
-        this.abort     = (typeof options.abort     === 'function') ? options.abort     : this.defaultAbort;
+        this.willAbort = (typeof options.willAbort === 'function') ? options.willAbort : this.defaultWillAbort;
         this.action    = (typeof options.action    === 'function') ? options.action    : this.defaultAction;
         this.target    = (typeof options.target    === 'function') ? options.target    : this.defaultTarget;
         this.text      = (typeof options.text      === 'function') ? options.text      : this.defaultText;
@@ -44,7 +44,7 @@ class Clipboard extends Emitter {
      * @param {Event} e
      */
     onClick(e) {
-        if (this.abort(e)) {
+        if (this.willAbort(e)) {
             return;
         }
 
@@ -65,10 +65,10 @@ class Clipboard extends Emitter {
     }
 
     /**
-     * Default `abort` lookup function.
+     * Default `willAbort` lookup function.
      * @param {Event} e
      */
-    defaultAbort(e) {
+    defaultWillAbort(e) {
         return false;
     }
 

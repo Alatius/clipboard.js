@@ -164,7 +164,7 @@ var Clipboard = function (_Emitter) {
         value: function resolveOptions() {
             var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-            this.abort = typeof options.abort === 'function' ? options.abort : this.defaultAbort;
+            this.willAbort = typeof options.willAbort === 'function' ? options.willAbort : this.defaultWillAbort;
             this.action = typeof options.action === 'function' ? options.action : this.defaultAction;
             this.target = typeof options.target === 'function' ? options.target : this.defaultTarget;
             this.text = typeof options.text === 'function' ? options.text : this.defaultText;
@@ -194,7 +194,7 @@ var Clipboard = function (_Emitter) {
     }, {
         key: 'onClick',
         value: function onClick(e) {
-            if (this.abort(e)) {
+            if (this.willAbort(e)) {
                 return;
             }
 
@@ -215,13 +215,13 @@ var Clipboard = function (_Emitter) {
         }
 
         /**
-         * Default `abort` lookup function.
+         * Default `willAbort` lookup function.
          * @param {Event} e
          */
 
     }, {
-        key: 'defaultAbort',
-        value: function defaultAbort(e) {
+        key: 'defaultWillAbort',
+        value: function defaultWillAbort(e) {
             return false;
         }
 
