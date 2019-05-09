@@ -67,6 +67,7 @@ class ClipboardAction {
         let yPosition = window.pageYOffset || document.documentElement.scrollTop;
         this.fakeElem.style.top = `${yPosition}px`;
 
+        this.fakeElem.setAttribute('class', 'clipboard-fake-textarea-element');
         this.fakeElem.setAttribute('readonly', '');
         this.fakeElem.value = this.text;
 
